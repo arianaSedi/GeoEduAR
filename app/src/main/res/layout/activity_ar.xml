@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/arFragment"
+        android:name="com.google.ar.sceneform.ux.ArFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardInfoAR"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="26dp"
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:strokeColor="@color/primary_light"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:id="@+id/tvEtiquetaAR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Experiencia AR"
+                android:textColor="@color/accent_brown"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNombreAR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Punto educativo"
+                android:textColor="@color/primary_dark"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tvDescripcionAR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Toca un plano para colocar el modelo 3D."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/tvAyudaAR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mueve lentamente el celular y toca una superficie plana."
+                android:textColor="@color/primary"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

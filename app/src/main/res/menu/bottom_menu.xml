@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Inicio"/>
+
+    <item
+        android:id="@+id/docentesFragment"
+        android:icon="@drawable/ic_docente"
+        android:title="Docentes"/>
+
+    <item
+        android:id="@+id/arFragment"
+        android:icon="@drawable/ic_explorar"
+        android:title="AR"/>
+
+    <item
+        android:id="@+id/perfilFragment"
+        android:icon="@drawable/ic_perfil"
+        android:title="Perfil"/>
+
+</menu>

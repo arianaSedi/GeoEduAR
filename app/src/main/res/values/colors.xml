@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="selector_nav">#1565C0</color>
+
+    <!-- Colores principales (azules institucionales) -->
+    <color name="primary_dark">#071739</color>
+    <color name="primary">#4B6382</color>
+    <color name="primary_light">#A4B5C4</color>
+    <color name="background_soft">#CDD5DB</color>
+
+    <!-- Colores cálidos (acentos educativos / humanos) -->
+    <color name="accent_brown">#A68868</color>
+    <color name="accent_warm">#E3C39D</color>
+
+    <!-- Neutros para UI -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- UI extras -->
+    <color name="text_primary">#071739</color>
+    <color name="text_secondary">#4B6382</color>
+    <color name="divider">#CDD5DB</color>
+
+</resources>

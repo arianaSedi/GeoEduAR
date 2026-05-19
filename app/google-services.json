@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "711945363697",
+    "project_id": "geoedu-ar",
+    "storage_bucket": "geoedu-ar.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711945363697:android:7311dbaa39f5dc47800950",
+        "android_client_info": {
+          "package_name": "com.example.geoeduAR"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBY0f-jxU_XkAZoYZDM0wx64PtMRQHg18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

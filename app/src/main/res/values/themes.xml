@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GeoEduAR" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- 🎯 Colores principales -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/accent_warm</item>
+        <item name="colorOnSecondary">@color/primary_dark</item>
+
+        <item name="colorTertiary">@color/accent_brown</item>
+
+        <!-- 🧱 Fondo de la app -->
+        <item name="android:colorBackground">@color/background_soft</item>
+        <item name="colorSurface">@color/white</item>
+
+        <!-- ✍️ Texto -->
+        <item name="colorOnBackground">@color/text_primary</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+
+        <!-- 🔘 Botones Material -->
+        <item name="materialButtonStyle">@style/Button</item>
+
+        <!-- 🧾 Inputs -->
+        <item name="textInputStyle">@style/TextInput</item>
+    </style>
+
+    <style name="Theme.GeoEduAR" parent="Base.Theme.GeoEduAR" />
+</resources>
