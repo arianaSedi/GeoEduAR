@@ -87,6 +87,31 @@ public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> 
         PuntoEducativo punto = lista.get(position);
         holder.tvNombrePunto.setText(punto.nombre);
         holder.tvDescripcionPunto.setText(punto.descripcion);
+        if (punto.docenteId != null && !punto.docenteId.isEmpty()) {
+
+            holder.tvDocentePunto.setText("Docente: Cargando...");
+
+            FirebaseDatabase.getInstance()
+                    .getReference("docentes")
+                    .child(punto.docenteId)
+                    .get()
+                    .addOnSuccessListener(snapshot -> {
+
+                        Docente docente = snapshot.getValue(Docente.class);
+
+                        if (docente != null && docente.nombre != null) {
+                            holder.tvDocentePunto.setText("Docente: " + docente.nombre);
+                        } else {
+                            holder.tvDocentePunto.setText("Docente: No encontrado");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        holder.tvDocentePunto.setText("Docente: Error al cargar");
+                    });
+
+        } else {
+            holder.tvDocentePunto.setText("Docente: No asignado");
+        }
 
         holder.btnUbicacion.setOnClickListener(v -> {
 
@@ -236,7 +261,13 @@ public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> 
         intent.putExtra("descripcion", punto.descripcion);
         intent.putExtra("contenidoAR", contenido);
         intent.putExtra("modelo3D", punto.modelo3D);
-        intent.putExtra("imagenReferencia", punto.imagenReferencia);
+        boolean tieneImagenReferencia =
+                punto.imagenReferencia != null &&
+                        !punto.imagenReferencia.trim().isEmpty();
+
+        intent.putExtra("usarImagenReferencia", tieneImagenReferencia);
+        intent.putExtra("imagenReferencia", tieneImagenReferencia ? punto.imagenReferencia : "");
+
         intent.putExtra("recursoMultimedia", punto.recursoMultimedia);
         intent.putExtra("tipoMultimedia", punto.tipoMultimedia);
         intent.putExtra("posicionX", punto.posicionX);
@@ -255,6 +286,7 @@ public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> 
 
         TextView tvNombrePunto;
         TextView tvDescripcionPunto;
+        TextView tvDocentePunto;
         TextView tvRadioPunto;
         MaterialButton btnUbicacion;
         MaterialButton btnVerAR;
@@ -264,6 +296,7 @@ public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> 
 
             tvNombrePunto = itemView.findViewById(R.id.tvNombrePunto);
             tvDescripcionPunto = itemView.findViewById(R.id.tvDescripcionPunto);
+            tvDocentePunto = itemView.findViewById(R.id.tvDocentePunto);
             tvRadioPunto = itemView.findViewById(R.id.tvRadioPunto);
             btnVerAR = itemView.findViewById(R.id.btnVerAR);
             btnUbicacion = itemView.findViewById(R.id.btnUbicacion);
