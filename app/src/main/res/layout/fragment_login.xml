@@ -73,6 +73,17 @@
                         android:inputType="textPassword"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:id="@+id/tvRecuperar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿Olvidaste tu contraseña?"
+                    android:textColor="@color/accent_brown"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="end"/>
+
                 <com.google.android.material.button.MaterialButton
                     style="@style/Button"
                     android:id="@+id/btnLogin"

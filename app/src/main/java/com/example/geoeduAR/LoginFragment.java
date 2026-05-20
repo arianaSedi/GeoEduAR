@@ -21,6 +21,7 @@ public class LoginFragment extends Fragment {
     MaterialButton btnLogin;
     TextView tvRegistro;
 
+    TextView tvRecuperar;
     FirebaseAuth auth;
 
     public LoginFragment() {
@@ -47,6 +48,7 @@ public class LoginFragment extends Fragment {
         etPassword = view.findViewById(R.id.etPassword);
         tvRegistro = view.findViewById(R.id.tvRegistro);
         btnLogin = view.findViewById(R.id.btnLogin);
+        tvRecuperar = view.findViewById(R.id.tvRecuperar);
 
         auth = FirebaseAuth.getInstance();
 
@@ -56,6 +58,8 @@ public class LoginFragment extends Fragment {
                 Navigation.findNavController(view)
                         .navigate(R.id.registroFragment)
         );
+
+        tvRecuperar.setOnClickListener(v -> recuperarPassword());
 
         return view;
 
@@ -89,5 +93,45 @@ public class LoginFragment extends Fragment {
                     }
                 });
     }
+
+    private void recuperarPassword() {
+
+        String correo = etCorreo.getText().toString().trim();
+
+        if (correo.isEmpty()) {
+            Toast.makeText(
+                    getContext(),
+                    "Ingresa tu correo primero",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+        auth.sendPasswordResetEmail(correo)
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(
+                                getContext(),
+                                "Correo enviado correctamente",
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                    } else {
+
+                        String error = task.getException() != null
+                                ? task.getException().getMessage()
+                                : "Error desconocido";
+
+                        Toast.makeText(
+                                getContext(),
+                                error,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
+
+    }
+
 }
 
