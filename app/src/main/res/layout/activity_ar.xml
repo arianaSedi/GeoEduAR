@@ -100,7 +100,7 @@
                     android:textSize="14sp"
                     android:lineSpacingExtra="4dp"/>
             </ScrollView>
-            
+
             <TextView
                 android:id="@+id/tvAyudaAR"
                 android:layout_width="match_parent"

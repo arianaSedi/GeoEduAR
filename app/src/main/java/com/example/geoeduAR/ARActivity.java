@@ -27,6 +27,7 @@ import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.InputStream;
 import java.util.Collection;
@@ -243,6 +244,11 @@ public class ARActivity extends AppCompatActivity {
             texto += "\n\nMultimedia: " + recursoMultimedia;
             reproducirAudioSiExiste();
         }
+
+        FirebaseDatabase.getInstance()
+                .getReference("docentes_encontrados")
+                .push()
+                .setValue(nombre);
 
         tvDescripcionAR.setText(texto);
         tvAyudaAR.setText(mensajeAyuda);
