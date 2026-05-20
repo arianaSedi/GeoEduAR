@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <fragment
         android:id="@+id/arFragment"
@@ -12,16 +12,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegresarAR"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Regresar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:backgroundTint="#AA071739"
+        app:cornerRadius="18dp"
+        app:icon="@drawable/atras"
+        app:iconTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMensajeEscaneo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:padding="14dp"
+        android:text="Mueve lentamente el celular y escanea el modelo 3D"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:background="#CC071739"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- CARD INFO -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardInfoAR"
         android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardCornerRadius="26dp"
-        app:cardElevation="10dp"
-        app:cardBackgroundColor="@color/white"
-        app:strokeColor="@color/primary_light"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="#071739"
+        app:strokeColor="#E3C39D"
         app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,51 +65,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="18dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/tvEtiquetaAR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Experiencia AR"
-                android:textColor="@color/accent_brown"
+                android:text="Docente AR"
+                android:textColor="#E3C39D"
                 android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvNombreAR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Punto educativo"
-                android:textColor="@color/primary_dark"
-                android:textSize="21sp"
+                android:text="Nombre del docente"
+                android:textColor="@color/white"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="6dp"/>
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="8dp">
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/tvDescripcionAR"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Toca un plano para colocar el modelo 3D."
-                    android:textColor="@color/text_secondary"
+                    android:text="Información del docente."
+                    android:textColor="#CDD5DB"
                     android:textSize="14sp"
-                    android:lineSpacingExtra="4dp" />
-
+                    android:lineSpacingExtra="4dp"/>
             </ScrollView>
-
+            
             <TextView
                 android:id="@+id/tvAyudaAR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mueve lentamente el celular y toca una superficie plana."
-                android:textColor="@color/primary"
+                android:text="Modelo detectado correctamente."
+                android:textColor="#E3C39D"
                 android:textSize="12sp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="12dp"/>
 
         </LinearLayout>
 

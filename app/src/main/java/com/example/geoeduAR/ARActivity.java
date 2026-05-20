@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.AugmentedImage;
@@ -39,7 +40,8 @@ public class ARActivity extends AppCompatActivity {
     private TextView tvNombreAR;
     private TextView tvDescripcionAR;
     private TextView tvAyudaAR;
-
+    private TextView tvMensajeEscaneo;
+    private MaterialButton btnRegresarAR;
     private String nombre;
     private String descripcion;
     private String modelo3D;
@@ -47,7 +49,6 @@ public class ARActivity extends AppCompatActivity {
     private String imagenReferencia;
     private String recursoMultimedia;
     private String tipoMultimedia;
-
     private float posicionX;
     private float posicionY;
     private float posicionZ;
@@ -80,10 +81,15 @@ public class ARActivity extends AppCompatActivity {
         tvDescripcionAR = findViewById(R.id.tvDescripcionAR);
         tvAyudaAR = findViewById(R.id.tvAyudaAR);
 
-        cardInfoAR.setVisibility(View.VISIBLE);
-        tvNombreAR.setText(nombre != null ? nombre : "Experiencia AR");
-        tvDescripcionAR.setText("Apunta la cámara a la imagen de referencia. Si no se detecta, toca una superficie plana.");
-        tvAyudaAR.setText("Busca el marcador del punto educativo o toca un plano detectado.");
+        tvMensajeEscaneo = findViewById(R.id.tvMensajeEscaneo);
+        btnRegresarAR = findViewById(R.id.btnRegresarAR);
+
+        cardInfoAR.setVisibility(View.GONE);
+        tvMensajeEscaneo.setVisibility(View.VISIBLE);
+
+        tvMensajeEscaneo.setText("Mueve lentamente el celular y escanea el modelo 3D");
+
+        btnRegresarAR.setOnClickListener(v -> finish());
 
         arFragment = (ArFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.arFragment);
@@ -219,6 +225,8 @@ public class ARActivity extends AppCompatActivity {
     }
 
     private void mostrarInformacion(String mensajeAyuda) {
+        tvMensajeEscaneo.setVisibility(View.GONE);
+        cardInfoAR.setVisibility(View.VISIBLE);
         tvNombreAR.setText(nombre != null ? nombre : "Información educativa");
 
         String texto = "";
