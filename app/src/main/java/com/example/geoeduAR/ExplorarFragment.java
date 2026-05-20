@@ -3,9 +3,13 @@ package com.example.geoeduAR;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +39,9 @@ public class ExplorarFragment extends Fragment {
     private TextView tvEstadoExplorar;
     private ArrayList<PuntoEducativo> lista;
     private PuntoAdapter adapter;
+    private EditText etBuscarExplorar;
+    private ProgressBar progressBarExplorar;
+    private ArrayList<PuntoEducativo> listaOriginal;
 
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -72,8 +79,11 @@ public class ExplorarFragment extends Fragment {
 
         recyclerExplorar = view.findViewById(R.id.recyclerExplorar);
         tvEstadoExplorar = view.findViewById(R.id.tvEstadoExplorar);
+        etBuscarExplorar = view.findViewById(R.id.etBuscarExplorar);
+        progressBarExplorar = view.findViewById(R.id.progressBarExplorar);
 
         lista = new ArrayList<>();
+        listaOriginal = new ArrayList<>();
         adapter = new PuntoAdapter(lista);
 
         recyclerExplorar.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -83,6 +93,27 @@ public class ExplorarFragment extends Fragment {
 
         cargarPuntosEducativos();
         verificarPermisoUbicacion();
+        etBuscarExplorar.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filtrar(s.toString());
+            }
+
+            @Override public void afterTextChanged(Editable s) {}
+        });
+    }
+    private void filtrar(String texto) {
+        if (listaOriginal == null) return;
+        lista.clear();
+        String busqueda = texto.toLowerCase();
+        for (PuntoEducativo p : listaOriginal) {
+            if (p.getNombre() != null && p.getNombre().toLowerCase().contains(busqueda)) {
+                lista.add(p);
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void verificarPermisoUbicacion() {
@@ -131,25 +162,30 @@ public class ExplorarFragment extends Fragment {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        lista.clear();
+                        listaOriginal.clear();
 
                         for (DataSnapshot item : snapshot.getChildren()) {
                             PuntoEducativo punto = item.getValue(PuntoEducativo.class);
 
                             if (punto != null) {
-                                lista.add(punto);
+                                listaOriginal.add(punto);
                             }
+                            filtrar(etBuscarExplorar.getText().toString());
                         }
-
-                        adapter.notifyDataSetChanged();
-
-                        if (lista.isEmpty()) {
-                            tvEstadoExplorar.setText("No hay puntos educativos registrados");
-                        } else {
-                            tvEstadoExplorar.setText(lista.size() + " puntos educativos disponibles");
-                        }
-
                         obtenerUbicacionUsuario();
+
+                        String textoActual = etBuscarExplorar.getText().toString();
+                        filtrar(textoActual);
+
+                        if (progressBarExplorar != null) {
+                            progressBarExplorar.setVisibility(View.GONE);
+                        }
+
+                        if (listaOriginal.isEmpty()) {
+                            tvEstadoExplorar.setText("No hay puntos registrados");
+                        } else {
+                            tvEstadoExplorar.setText(listaOriginal.size() + " puntos registrados");
+                        }
                     }
 
                     @Override

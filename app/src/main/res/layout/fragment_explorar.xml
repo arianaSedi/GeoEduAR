@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Explora puntos educativos cercanos, escanea imágenes de referencia y visualiza modelos 3D en realidad aumentada."
+            android:text="Explora puntos educativos cercanos, escanea imágenes y visualiza modelos 3D en realidad aumentada."
             android:textColor="@color/background_soft"
             android:textSize="14sp"
             android:layout_marginTop="6dp" />
@@ -44,11 +44,13 @@
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomSheetExplorar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="-34dp"
         app:cardCornerRadius="34dp"
         app:cardElevation="8dp"
+        android:translationY="18dp"
         app:cardBackgroundColor="@color/background_soft"
         app:layout_constraintTop_toBottomOf="@id/headerExplorar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +61,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="18dp">
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="18dp"
+            android:paddingTop="42dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -68,6 +73,12 @@
                 android:textColor="@color/primary_dark"
                 android:textSize="21sp"
                 android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressBarExplorar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tvEstadoExplorar"
@@ -89,6 +100,44 @@
 
         </LinearLayout>
 
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="32dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="10dp"
+        app:layout_constraintTop_toTopOf="@id/bottomSheetExplorar"
+        app:layout_constraintBottom_toTopOf="@id/bottomSheetExplorar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_search"
+                app:tint="@color/text_secondary" />
+
+            <EditText
+                android:id="@+id/etBuscarExplorar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:background="@android:color/transparent"
+                android:hint="Buscar punto..."
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textColor="@color/primary_dark"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="15sp" />
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

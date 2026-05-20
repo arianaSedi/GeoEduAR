@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> {
 
-    private final ArrayList<PuntoEducativo> lista;
+    private ArrayList<PuntoEducativo> lista;
 
     private double latUsuario = 0;
     private double lngUsuario = 0;
@@ -268,5 +268,10 @@ public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> 
             btnVerAR = itemView.findViewById(R.id.btnVerAR);
             btnUbicacion = itemView.findViewById(R.id.btnUbicacion);
         }
+    }
+
+    public void filtrarlistaa(ArrayList<PuntoEducativo> listaFiltrada) {
+        this.lista = listaFiltrada;
+        notifyDataSetChanged();
     }
 }
