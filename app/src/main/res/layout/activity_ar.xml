@@ -71,7 +71,7 @@
                 android:id="@+id/tvEtiquetaAR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Docente AR"
+                android:text="Docente asociado al punto educativo"
                 android:textColor="#E3C39D"
                 android:textSize="13sp"
                 android:textStyle="bold"/>
@@ -105,7 +105,7 @@
                 android:id="@+id/tvAyudaAR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Modelo detectado correctamente."
+                android:text="Modelo encontrado en este punto educativo.."
                 android:textColor="#E3C39D"
                 android:textSize="12sp"
                 android:layout_marginTop="12dp"/>
