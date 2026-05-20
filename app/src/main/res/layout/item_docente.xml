@@ -23,13 +23,18 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <TextView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:gravity="center"
-                android:text="👨‍🏫"
-                android:textSize="23sp"
-                android:background="@drawable/bg_circulo_primary" />
+                app:cardCornerRadius="26dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/primary"> <ImageView
+                android:id="@+id/imgDocenteLista"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_perfil"
+                app:tint="@color/accent_warm"/> </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="0dp"

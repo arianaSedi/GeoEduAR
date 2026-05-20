@@ -38,7 +38,7 @@
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:src="@drawable/imgdoc"
+                    android:src="@drawable/log"
                     android:scaleType="centerCrop"
                     android:background="#CDD5DB"
                     android:padding="6dp"/>
