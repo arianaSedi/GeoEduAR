@@ -81,21 +81,35 @@ public class DocenteAdapter extends RecyclerView.Adapter<DocenteAdapter.ViewHold
 
         holder.btnVerARDocente.setOnClickListener(v -> {
 
-            String info =
-                    "Nombre: " + docente.nombre + "\n\n" +
-                            "Cargo: " + docente.cargo + "\n\n" +
-                            "Profesión: " + docente.profesion + "\n\n" +
-                            "Carrera: " + docente.carrera + "\n\n" +
-                            "Oficina: " + docente.oficina + "\n\n" +
-                            "Correo: " + docente.correo + "\n\n" +
-                            "Pasatiempos: " + docente.pasatiempos + "\n\n" +
-                            "Historia:\n" + docente.historia;
+            View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.dialogodocente, null);
 
-            new androidx.appcompat.app.AlertDialog.Builder(v.getContext())
-                    .setTitle(docente.nombre)
-                    .setMessage(info)
-                    .setPositiveButton("Cerrar", null)
-                    .show();
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(v.getContext());
+            builder.setView(dialogView);
+            androidx.appcompat.app.AlertDialog dialog = builder.create();
+
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+            }
+            TextView tvNombre = dialogView.findViewById(R.id.tvDialogNombre);
+            TextView tvCargo = dialogView.findViewById(R.id.tvDialogCargo);
+            TextView tvProfesion = dialogView.findViewById(R.id.tvDialogProfesion);
+            TextView tvOficina = dialogView.findViewById(R.id.tvDialogOficina);
+            TextView tvCorreo = dialogView.findViewById(R.id.tvDialogCorreo);
+            TextView tvPasatiempos = dialogView.findViewById(R.id.tvDialogPasatiempos);
+            TextView tvHistoria = dialogView.findViewById(R.id.tvDialogHistoriaTexto);
+            MaterialButton btnCerrar = dialogView.findViewById(R.id.btnDialogCerrar);
+
+            tvNombre.setText(docente.getNombre() != null ? docente.getNombre() : "Sin Nombre");
+            tvCargo.setText(docente.getCargo() != null ? docente.getCargo() : "Docente de la FMO");
+
+            tvProfesion.setText("Profesión: " + (docente.getProfesion() != null ? docente.getProfesion() : "No especificada"));;
+            tvOficina.setText("Oficina: " + (docente.getOficina() != null ? docente.getOficina() : "No asignada"));
+            tvCorreo.setText("Correo: " + (docente.getCorreo() != null ? docente.getCorreo() : "No disponible"));
+            tvPasatiempos.setText("Pasatiempos: " + (docente.getPasatiempos() != null ? docente.getPasatiempos() : "Ninguno"));
+            tvHistoria.setText(docente.getHistoria() != null ? docente.getHistoria() : "Sin historia registrada en el sistema.");
+
+            btnCerrar.setOnClickListener(view -> dialog.dismiss());
+            dialog.show();
         });
     }
 

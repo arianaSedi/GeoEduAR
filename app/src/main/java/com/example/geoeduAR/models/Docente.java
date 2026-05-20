@@ -70,4 +70,56 @@ public class Docente {
     public int getRadioMetros() {
         return radioMetros;
     }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setDisponibleAR(boolean disponibleAR) {
+        this.disponibleAR = disponibleAR;
+    }
+
+    public void setHistoria(String historia) {
+        this.historia = historia;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    public void setModelo3D(String modelo3D) {
+        this.modelo3D = modelo3D;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setOficina(String oficina) {
+        this.oficina = oficina;
+    }
+
+    public void setPasatiempos(String pasatiempos) {
+        this.pasatiempos = pasatiempos;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
+
+    public void setRadioMetros(int radioMetros) {
+        this.radioMetros = radioMetros;
+    }
 }
