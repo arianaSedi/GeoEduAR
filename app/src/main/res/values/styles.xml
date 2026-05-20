@@ -25,4 +25,19 @@
         <item name="cardCornerRadius">24dp</item>
         <item name="cardElevation">8dp</item>
     </style>
+
+    <style name="Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+
+        <item name="colorPrimary">#071739</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#071739</item>
+
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+
+    </style>
+
+    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#E3C39D</item>
+    </style>
 </resources>

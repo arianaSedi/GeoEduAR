@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -85,11 +86,25 @@ public class PerfilFragment extends Fragment {
         tvProfileEmail.setText(user.getEmail());
 
         btnLogout.setOnClickListener(v -> {
-            auth.signOut();
-            Toast.makeText(getContext(), "Sesión cerrada", Toast.LENGTH_SHORT).show();
 
-            Navigation.findNavController(view)
-                    .navigate(R.id.loginFragment);
+            new MaterialAlertDialogBuilder(requireContext(), R.style.Dialog)
+                    .setTitle("Cerrar sesión")
+                    .setMessage("¿Estás seguro de que deseas cerrar sesión?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+
+                        auth.signOut();
+
+                        Toast.makeText(getContext(),
+                                "Sesión cerrada",
+                                Toast.LENGTH_SHORT).show();
+
+                        Navigation.findNavController(view)
+                                .navigate(R.id.loginFragment);
+
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+
         });
 
         return view;

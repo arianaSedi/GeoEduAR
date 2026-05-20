@@ -13,8 +13,8 @@
 
     <item
         android:id="@+id/arFragment"
-        android:icon="@drawable/ic_explorar"
-        android:title="AR"/>
+        android:icon="@drawable/ic_explora"
+        android:title="Explorar"/>
 
     <item
         android:id="@+id/perfilFragment"
