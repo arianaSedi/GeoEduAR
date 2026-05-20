@@ -36,9 +36,14 @@ public class HomeFragment extends Fragment {
             return view;
         }
 
-        tvUser.setText("Bienvenido: " + user.getEmail());
+        String nombre = user.getDisplayName();
 
+        if (nombre == null || nombre.isEmpty()) {
+            String correo = user.getEmail();
+            nombre = correo.split("@")[0];
+        }
 
+        tvUser.setText("Bienvenido: " + nombre);
         return view;
     }
 }

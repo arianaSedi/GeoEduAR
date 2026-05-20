@@ -18,4 +18,56 @@ public class Docente {
 
     public Docente() {
     }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public boolean isDisponibleAR() {
+        return disponibleAR;
+    }
+
+    public String getHistoria() {
+        return historia;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public String getModelo3D() {
+        return modelo3D;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getOficina() {
+        return oficina;
+    }
+
+    public String getPasatiempos() {
+        return pasatiempos;
+    }
+
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public int getRadioMetros() {
+        return radioMetros;
+    }
 }

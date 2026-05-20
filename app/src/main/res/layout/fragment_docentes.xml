@@ -2,80 +2,100 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_dark">
 
     <LinearLayout
         android:id="@+id/headerDocentes"
-        android:layout_width="0dp"
-        android:layout_height="210dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:paddingStart="24dp"
+        android:paddingTop="48dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="64dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="GeoEduAR"
             android:textColor="@color/primary_light"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Docentes"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Consulta información de docentes vinculados a las zonas "
-            android:textColor="@color/background_soft"
             android:textSize="14sp"
-            android:layout_marginTop="6dp" />
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Personal De La FMO"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Encuentra docentes, oficinas y su ubicación dentro del campus."
+            android:textColor="#B3FFFFFF"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"/>
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="0dp"
+        android:id="@+id/bottomSheetCard"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-34dp"
-        app:cardCornerRadius="34dp"
-        app:cardElevation="8dp"
+        android:layout_marginTop="-32dp"
         app:cardBackgroundColor="@color/background_soft"
-        app:layout_constraintTop_toBottomOf="@id/headerDocentes"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/headerDocentes">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="18dp">
+            android:paddingTop="42dp"
+            android:paddingHorizontal="20dp">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/listHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lista de docentes"
-                android:textColor="@color/primary_dark"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvEstadoDocentes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cargando docentes..."
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lista de Personal"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:theme="@style/Theme.AppCompat.Light" />
+
+                <TextView
+                    android:id="@+id/tvEstadoDocentes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cargando..."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerDocentes"
@@ -83,11 +103,51 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
                 android:clipToPadding="false"
-                android:paddingBottom="12dp"
-                android:layout_weight="1" />
+                android:paddingBottom="24dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/listHeader"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:listitem="@android:layout/simple_list_item_1" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="32dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="6dp"
+        app:layout_constraintTop_toTopOf="@id/bottomSheetCard"
+        app:layout_constraintBottom_toTopOf="@id/bottomSheetCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_search"
+                app:tint="@color/text_secondary" />
+
+            <EditText
+                android:id="@+id/etBuscarDocente"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:background="@android:color/transparent"
+                android:hint="Buscar (ej. Hector)..."
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textColor="@color/primary_dark"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="15sp" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

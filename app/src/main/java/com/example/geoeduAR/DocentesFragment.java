@@ -1,9 +1,13 @@
 package com.example.geoeduAR;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +31,12 @@ public class DocentesFragment extends Fragment {
     private RecyclerView recyclerDocentes;
     private TextView tvEstadoDocentes;
     private ArrayList<Docente> lista;
+
+    private EditText etBuscarDocente;
+
+    private ArrayList<Docente> listaOriginal;
     private DocenteAdapter adapter;
+    private ProgressBar progressBar;
 
     public DocentesFragment() {
     }
@@ -50,14 +59,40 @@ public class DocentesFragment extends Fragment {
 
         recyclerDocentes = view.findViewById(R.id.recyclerDocentes);
         tvEstadoDocentes = view.findViewById(R.id.tvEstadoDocentes);
+        etBuscarDocente = view.findViewById(R.id.etBuscarDocente);
+        progressBar = view.findViewById(R.id.progressBar);
 
         lista = new ArrayList<>();
+        listaOriginal = new ArrayList<>();
         adapter = new DocenteAdapter(lista);
 
         recyclerDocentes.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerDocentes.setAdapter(adapter);
 
         cargarDocentes();
+
+        etBuscarDocente.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filtrar(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+    private void filtrar(String texto) {
+        ArrayList<Docente> listaFiltrada = new ArrayList<>();
+
+        for (Docente docente : listaOriginal) {
+            if (docente.getNombre().toLowerCase().contains(texto.toLowerCase())) {
+                listaFiltrada.add(docente);
+            }
+        }
+        adapter.filtrarLista(listaFiltrada);
     }
 
     private void cargarDocentes() {
@@ -67,21 +102,27 @@ public class DocentesFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         lista.clear();
+                        listaOriginal.clear();
 
                         for (DataSnapshot item : snapshot.getChildren()) {
                             Docente docente = item.getValue(Docente.class);
 
                             if (docente != null) {
                                 lista.add(docente);
+                                listaOriginal.add(docente);
                             }
                         }
+                        String textoActual = etBuscarDocente.getText().toString();
+                        filtrar(textoActual);
 
-                        adapter.notifyDataSetChanged();
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
 
-                        if (lista.isEmpty()) {
+                        if (listaOriginal.isEmpty()) {
                             tvEstadoDocentes.setText("No hay docentes registrados");
                         } else {
-                            tvEstadoDocentes.setText(lista.size() + " docentes registrados");
+                            tvEstadoDocentes.setText(listaOriginal.size() + " docentes registrados");
                         }
                     }
 

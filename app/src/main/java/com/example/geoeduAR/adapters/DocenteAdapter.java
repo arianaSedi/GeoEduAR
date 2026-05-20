@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class DocenteAdapter extends RecyclerView.Adapter<DocenteAdapter.ViewHolder> {
 
-    private final ArrayList<Docente> lista;
+    private ArrayList<Docente> lista;
 
     public DocenteAdapter(ArrayList<Docente> lista) {
         this.lista = lista;
@@ -121,5 +121,9 @@ public class DocenteAdapter extends RecyclerView.Adapter<DocenteAdapter.ViewHold
             btnVerARDocente = itemView.findViewById(R.id.btnVerARDocente);
             btnUbicarDocente = itemView.findViewById(R.id.btnUbicarDocente);
         }
+    }
+    public void filtrarLista(ArrayList<Docente> listaFiltrada) {
+        this.lista = listaFiltrada;
+        notifyDataSetChanged();
     }
 }
