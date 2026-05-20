@@ -35,16 +35,16 @@ public class SplashActivity extends AppCompatActivity {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
             if (user != null) {
-                // ya inició sesión → va al home
+                //si ya inicio sesicon va al home
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
             } else {
-                // no ha iniciado sesión → va al login
+                // no ha iniciado sesion va al login y en el login si aun no ha creado cuenta va al registro
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
 
             finish();
 
-        }, 2000); // 2 segundos de splash
+        }, 3000); // 2 segundos de splash es decir de tiempo de cambio
     }
 
 }
