@@ -14,15 +14,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistroFragment extends Fragment {
-
     TextInputEditText etCorreo, etPassword;
     MaterialButton btnRegister;
-
     FirebaseAuth auth;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_registro, container, false);
 
@@ -30,10 +27,10 @@ public class RegistroFragment extends Fragment {
         etPassword = view.findViewById(R.id.etPassword);
         btnRegister = view.findViewById(R.id.btnRegister);
 
+        // INICIALIZA FIREBASE AUTHENTICATION
         auth = FirebaseAuth.getInstance();
 
         btnRegister.setOnClickListener(v -> register(view));
-
         return view;
     }
 
@@ -47,21 +44,21 @@ public class RegistroFragment extends Fragment {
             return;
         }
 
+        // CREA UN NUEVO USUARIO EN FIREBASE CON CORREO Y CONTRASENA
         auth.createUserWithEmailAndPassword(correo, pass)
                 .addOnCompleteListener(task -> {
 
+                    // SI EL REGISTRO ES CORRECTO, REGRESA AL LOGIN
                     if (task.isSuccessful()) {
 
                         Toast.makeText(getContext(), "Usuario creado", Toast.LENGTH_SHORT).show();
 
-                        Navigation.findNavController(view)
-                                .navigate(R.id.loginFragment);
+                        Navigation.findNavController(view).navigate(R.id.loginFragment);
 
                     } else {
 
-                        Toast.makeText(getContext(),
-                                task.getException().getMessage(),
-                                Toast.LENGTH_LONG).show();
+                        // SI OCURRE ERROR, MUESTRA EL MENSAJE DEVUELTO POR FIREBASE
+                        Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }

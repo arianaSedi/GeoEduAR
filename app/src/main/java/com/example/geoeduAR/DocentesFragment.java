@@ -27,13 +27,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class DocentesFragment extends Fragment {
-
     private RecyclerView recyclerDocentes;
     private TextView tvEstadoDocentes;
     private ArrayList<Docente> lista;
-
     private EditText etBuscarDocente;
 
+    // LISTA ORIGINAL PARA CONSERVAR TODOS LOS DOCENTES AL FILTRAR
     private ArrayList<Docente> listaOriginal;
     private DocenteAdapter adapter;
     private ProgressBar progressBar;
@@ -42,19 +41,12 @@ public class DocentesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_docentes, container, false);
     }
 
     @Override
-    public void onViewCreated(
-            @NonNull View view,
-            @Nullable Bundle savedInstanceState
-    ) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerDocentes = view.findViewById(R.id.recyclerDocentes);
@@ -66,11 +58,12 @@ public class DocentesFragment extends Fragment {
         listaOriginal = new ArrayList<>();
         adapter = new DocenteAdapter(lista);
 
+      //MOSTRAR LOS DOCENTES EN FORMA DE LISTA
         recyclerDocentes.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerDocentes.setAdapter(adapter);
-
         cargarDocentes();
 
+        // ESCUCHA LOS CAMBIOS EN EL BUSCADOR PARA FILTRAR EN TIEMPO REAL
         etBuscarDocente.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -84,14 +77,18 @@ public class DocentesFragment extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
     }
+
     private void filtrar(String texto) {
+        // CREA UNA LISTA TEMPORAL PARA GUARDAR LOS RESULTADOS FILTRADOS
         ArrayList<Docente> listaFiltrada = new ArrayList<>();
 
+        // RECORRE LA LISTA ORIGINAL PARA BUSCAR COINCIDENCIAS POR NOMBRE
         for (Docente docente : listaOriginal) {
             if (docente.getNombre().toLowerCase().contains(texto.toLowerCase())) {
                 listaFiltrada.add(docente);
             }
         }
+        // ENVIA LA LISTA FILTRADA AL ADAPTADOR
         adapter.filtrarLista(listaFiltrada);
     }
 
@@ -101,17 +98,24 @@ public class DocentesFragment extends Fragment {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // LIMPIA LAS LISTAS ANTES DE CARGAR DATOS NUEVOS
                         lista.clear();
                         listaOriginal.clear();
 
+                        // RECORRE CADA DOCENTE GUARDADO EN FIREBASE
                         for (DataSnapshot item : snapshot.getChildren()) {
                             Docente docente = item.getValue(Docente.class);
 
                             if (docente != null) {
+                                // GUARDA EL ID REAL DEL NODO PARA COMPARARLO CON DOCENTES_ENCONTRADOS
+                                docente.id = item.getKey();
+
+                                // AGREGA EL DOCENTE A LA LISTA VISIBLE Y A LA LISTA ORIGINAL
                                 lista.add(docente);
                                 listaOriginal.add(docente);
                             }
                         }
+
                         String textoActual = etBuscarDocente.getText().toString();
                         filtrar(textoActual);
 
@@ -129,11 +133,7 @@ public class DocentesFragment extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         tvEstadoDocentes.setText("Error al cargar docentes");
-                        Toast.makeText(
-                                requireContext(),
-                                error.getMessage(),
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

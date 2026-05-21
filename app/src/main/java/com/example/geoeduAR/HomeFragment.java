@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomeFragment extends Fragment {
 
     TextView tvUser;
-    MaterialButton btnLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,8 +30,7 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null) {
-            Navigation.findNavController(view)
-                    .navigate(R.id.loginFragment);
+            Navigation.findNavController(view).navigate(R.id.loginFragment);
             return view;
         }
 
@@ -43,7 +41,7 @@ public class HomeFragment extends Fragment {
             nombre = correo.split("@")[0];
         }
 
-        tvUser.setText("Bienvenido: " + nombre);
+        tvUser.setText("Bienvenido " + nombre);
         return view;
     }
 }

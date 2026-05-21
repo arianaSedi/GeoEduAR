@@ -16,16 +16,15 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginFragment extends Fragment {
-
     TextInputEditText etCorreo, etPassword;
     MaterialButton btnLogin;
     TextView tvRegistro;
-
     TextView tvRecuperar;
+
+    // INSTANCIA DE FIREBASE AUTHENTICATION
     FirebaseAuth auth;
 
     public LoginFragment() {
-        // Required empty public constructor
     }
 
     public static LoginFragment newInstance(String param1, String param2) {
@@ -40,8 +39,8 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         etCorreo = view.findViewById(R.id.etCorreo);
@@ -50,17 +49,17 @@ public class LoginFragment extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         tvRecuperar = view.findViewById(R.id.tvRecuperar);
 
+        // INICIALIZA FIREBASE AUTHENTICATION
         auth = FirebaseAuth.getInstance();
 
         btnLogin.setOnClickListener(v -> login(view));
 
+        // NAVEGA HACIA LA PANTALLA DE REGISTRO
         tvRegistro.setOnClickListener(v ->
-                Navigation.findNavController(view)
-                        .navigate(R.id.registroFragment)
-        );
+                Navigation.findNavController(view).navigate(R.id.registroFragment));
 
+        // ENVIA CORREO DE RECUPERACION DE CONTRASENA
         tvRecuperar.setOnClickListener(v -> recuperarPassword());
-
         return view;
 
     }
@@ -75,63 +74,53 @@ public class LoginFragment extends Fragment {
             return;
         }
 
+        // INICIA SESION CON CORREO Y CONTRASENA USANDO FIREBASE
         auth.signInWithEmailAndPassword(correo, pass)
                 .addOnCompleteListener(task -> {
 
+                    // SI EL LOGIN ES CORRECTO, NAVEGA AL HOME
                     if (task.isSuccessful()) {
 
                         Toast.makeText(getContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
 
-                        Navigation.findNavController(view)
-                                .navigate(R.id.homeFragment);
+                        Navigation.findNavController(view).navigate(R.id.homeFragment);
 
                     } else {
 
-                        Toast.makeText(getContext(),
-                                task.getException().getMessage(),
-                                Toast.LENGTH_LONG).show();
+                        // SI FALLA, MUESTRA EL ERROR DEVUELTO POR FIREBASE
+                        Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
     private void recuperarPassword() {
 
+        // OBTIENE EL CORREO ESCRITO POR EL USUARIO
         String correo = etCorreo.getText().toString().trim();
 
         if (correo.isEmpty()) {
-            Toast.makeText(
-                    getContext(),
-                    "Ingresa tu correo primero",
-                    Toast.LENGTH_SHORT
-            ).show();
+            Toast.makeText(getContext(), "Ingresa tu correo primero", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // ENVIA UN CORREO PARA RESTABLECER LA CONTRASENA
         auth.sendPasswordResetEmail(correo)
                 .addOnCompleteListener(task -> {
 
+                    // SI EL CORREO SE ENVIA, MUESTRA CONFIRMACION
                     if (task.isSuccessful()) {
-
-                        Toast.makeText(
-                                getContext(),
-                                "Correo enviado correctamente",
-                                Toast.LENGTH_LONG
-                        ).show();
+                        Toast.makeText(getContext(), "Correo enviado correctamente", Toast.LENGTH_LONG).show();
 
                     } else {
 
+                        // SI OCURRE ERROR, MUESTRA EL MENSAJE DEVUELTO POR FIREBASE
                         String error = task.getException() != null
                                 ? task.getException().getMessage()
                                 : "Error desconocido";
 
-                        Toast.makeText(
-                                getContext(),
-                                error,
-                                Toast.LENGTH_LONG
-                        ).show();
+                        Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
                     }
                 });
-
     }
 
 }
-

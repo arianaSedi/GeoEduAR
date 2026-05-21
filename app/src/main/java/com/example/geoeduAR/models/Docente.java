@@ -2,6 +2,7 @@ package com.example.geoeduAR.models;
 
 public class Docente {
 
+    public String id;
     public String nombre;
     public String cargo;
     public String correo;
@@ -17,6 +18,14 @@ public class Docente {
     public boolean disponibleAR;
 
     public Docente() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCargo() {
