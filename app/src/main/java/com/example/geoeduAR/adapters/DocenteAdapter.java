@@ -124,6 +124,7 @@ public class DocenteAdapter extends RecyclerView.Adapter<DocenteAdapter.ViewHold
             TextView tvOficina = dialogView.findViewById(R.id.tvDialogOficina);
             TextView tvCorreo = dialogView.findViewById(R.id.tvDialogCorreo);
             TextView tvPasatiempos = dialogView.findViewById(R.id.tvDialogPasatiempos);
+            TextView tvMaterias = dialogView.findViewById(R.id.tvDialogMaterias);
             TextView tvHistoria = dialogView.findViewById(R.id.tvDialogHistoriaTexto);
             MaterialButton btnCerrar = dialogView.findViewById(R.id.btnDialogCerrar);
 
@@ -135,6 +136,7 @@ public class DocenteAdapter extends RecyclerView.Adapter<DocenteAdapter.ViewHold
             tvOficina.setText("Oficina: " + (docente.getOficina() != null ? docente.getOficina() : "No asignada"));
             tvCorreo.setText("Correo: " + (docente.getCorreo() != null ? docente.getCorreo() : "No disponible"));
             tvPasatiempos.setText("Pasatiempos: " + (docente.getPasatiempos() != null ? docente.getPasatiempos() : "Ninguno"));
+            tvMaterias.setText("Materias: " + (docente.getMaterias() != null ? docente.getMaterias() : "No especificadas"));
             tvHistoria.setText(docente.getHistoria() != null ? docente.getHistoria() : "Sin historia registrada en el sistema.");
 
             btnCerrar.setOnClickListener(view -> dialog.dismiss());

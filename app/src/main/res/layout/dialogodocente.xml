@@ -121,6 +121,18 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/text_secondary"
                 android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tvDialogMaterias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@drawable/lapiz"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/primary_light"
+                android:text="Materias: "
+                android:gravity="center_vertical"
+                android:textColor="@color/text_secondary"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="match_parent"

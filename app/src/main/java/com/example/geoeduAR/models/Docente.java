@@ -16,6 +16,7 @@ public class Docente {
     public String carrera;
     public String modelo3D;
     public boolean disponibleAR;
+    public String materias;
 
     public Docente() {
     }
@@ -130,5 +131,13 @@ public class Docente {
 
     public void setRadioMetros(int radioMetros) {
         this.radioMetros = radioMetros;
+    }
+
+    public String getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(String materias) {
+        this.materias = materias;
     }
 }
