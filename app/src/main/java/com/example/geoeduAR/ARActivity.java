@@ -53,6 +53,9 @@ public class ARActivity extends AppCompatActivity {
     private float posicionX;
     private float posicionY;
     private float posicionZ;
+    private String docenteId;
+    private String nombreDocente;
+    private boolean usarImagenReferencia;
 
     private boolean modeloColocado = false;
     private boolean baseImagenConfigurada = false;
@@ -70,6 +73,11 @@ public class ARActivity extends AppCompatActivity {
         contenidoAR = getIntent().getStringExtra("contenidoAR");
 
         imagenReferencia = getIntent().getStringExtra("imagenReferencia");
+        usarImagenReferencia = getIntent().getBooleanExtra("usarImagenReferencia", false);
+
+        docenteId = getIntent().getStringExtra("docenteId");
+        nombreDocente = getIntent().getStringExtra("nombreDocente");
+
         recursoMultimedia = getIntent().getStringExtra("recursoMultimedia");
         tipoMultimedia = getIntent().getStringExtra("tipoMultimedia");
 
@@ -88,7 +96,11 @@ public class ARActivity extends AppCompatActivity {
         cardInfoAR.setVisibility(View.GONE);
         tvMensajeEscaneo.setVisibility(View.VISIBLE);
 
-        tvMensajeEscaneo.setText("Mueve lentamente el celular y escanea el modelo 3D");
+        if (usarImagenReferencia && imagenReferencia != null && !imagenReferencia.isEmpty()) {
+            tvMensajeEscaneo.setText("Escanea la imagen relacionada con este docente");
+        } else {
+            tvMensajeEscaneo.setText("Estás dentro del rango. Toca un plano para ver al docente");
+        }
 
         btnRegresarAR.setOnClickListener(v -> finish());
 
@@ -110,11 +122,16 @@ public class ARActivity extends AppCompatActivity {
                 return;
             }
 
+            if (usarImagenReferencia && imagenReferencia != null && !imagenReferencia.isEmpty()) {
+                Toast.makeText(this, "Este docente se muestra escaneando su imagen", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Anchor anchor = hitResult.createAnchor();
             colocarModelo(anchor);
             modeloColocado = true;
 
-            mostrarInformacion("Modelo colocado sobre plano detectado.");
+            mostrarInformacion("Docente mostrado por rango de ubicación.");
         });
     }
 
@@ -141,6 +158,10 @@ public class ARActivity extends AppCompatActivity {
     private void detectarImagen(FrameTime frameTime) {
         if (modeloColocado || modeloRenderable == null) return;
 
+        if (!usarImagenReferencia || imagenReferencia == null || imagenReferencia.isEmpty()) {
+            return;
+        }
+
         Session session = arFragment.getArSceneView().getSession();
         if (session == null) return;
 
@@ -160,17 +181,18 @@ public class ARActivity extends AppCompatActivity {
                 colocarModelo(anchor);
 
                 modeloColocado = true;
-                mostrarInformacion("Imagen detectada correctamente.");
+                mostrarInformacion("Imagen del docente detectada correctamente.");
 
-                Toast.makeText(this, "Imagen de referencia detectada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Docente detectado por imagen", Toast.LENGTH_SHORT).show();
                 break;
             }
         }
     }
 
     private void configurarImagenReferencia(Session session) {
-        if (imagenReferencia == null || imagenReferencia.isEmpty()) {
+        if (!usarImagenReferencia || imagenReferencia == null || imagenReferencia.trim().isEmpty()) {
             baseImagenConfigurada = true;
+            usarImagenReferencia = false;
             return;
         }
 
@@ -179,19 +201,45 @@ public class ARActivity extends AppCompatActivity {
 
             AugmentedImageDatabase database = new AugmentedImageDatabase(session);
 
-            InputStream inputStream = getAssets().open("img/" + imagenReferencia);
+            InputStream inputStream = getAssets().open("img/" + imagenReferencia.trim());
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
-            database.addImage(imagenReferencia, bitmap);
+            if (bitmap == null) {
+                baseImagenConfigurada = true;
+                usarImagenReferencia = false;
+
+                tvMensajeEscaneo.setText("No se pudo leer la imagen. Toca un plano para ver al docente.");
+
+                Toast.makeText(
+                        this,
+                        "Imagen inválida: " + imagenReferencia,
+                        Toast.LENGTH_LONG
+                ).show();
+
+                return;
+            }
+
+            database.addImage(imagenReferencia.trim(), bitmap);
 
             config.setAugmentedImageDatabase(database);
             session.configure(config);
 
             baseImagenConfigurada = true;
 
+            Toast.makeText(
+                    this,
+                    "Imagen lista para escanear: " + imagenReferencia,
+                    Toast.LENGTH_SHORT
+            ).show();
+
         } catch (Exception e) {
             baseImagenConfigurada = true;
-            Toast.makeText(this,
+            usarImagenReferencia = false;
+
+            tvMensajeEscaneo.setText("No se encontró la imagen. Toca un plano para ver al docente.");
+
+            Toast.makeText(
+                    this,
                     "No se pudo cargar la imagen: " + imagenReferencia,
                     Toast.LENGTH_LONG
             ).show();
