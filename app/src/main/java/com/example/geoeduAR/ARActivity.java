@@ -115,7 +115,7 @@ public class ARActivity extends AppCompatActivity {
             }
 
             // SI EL PUNTO USA IMAGEN, NO PERMITE COLOCARLO TOCANDO EL PLANO
-            if (usarImagenReferencia && imagenReferencia != null && !imagenReferencia.isEmpty()) {
+            if (usarImagenReferencia && imagenReferencia != null && !imagenReferencia.trim().isEmpty()) {
                 Toast.makeText(this, "Este docente se muestra escaneando su imagen", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -148,7 +148,11 @@ public class ARActivity extends AppCompatActivity {
                     // GUARDA EL MODELO YA CARGADO PARA USARLO EN LA ESCENA AR
                     modeloRenderable = renderable;
 
-                    Toast.makeText(this, "Modelo listo. Escanea imagen o toca un plano.", Toast.LENGTH_SHORT).show();
+                    if (usarImagenReferencia) {
+                        Toast.makeText(this, "Modelo listo. Escanea la imagen.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Modelo listo. Toca un plano.", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .exceptionally(throwable -> {
                     Toast.makeText(this, "Error cargando modelo: " + modelo3D, Toast.LENGTH_LONG).show();
@@ -162,7 +166,7 @@ public class ARActivity extends AppCompatActivity {
         if (modeloColocado || modeloRenderable == null) return;
 
         // SI NO HAY IMAGEN DE REFERENCIA, NO SE USA DETECCION POR IMAGEN
-        if (!usarImagenReferencia || imagenReferencia == null || imagenReferencia.isEmpty()) {
+        if (!usarImagenReferencia || imagenReferencia == null || imagenReferencia.trim().isEmpty()) {
             return;
         }
 
@@ -204,8 +208,9 @@ public class ARActivity extends AppCompatActivity {
 
         // SI NO HAY IMAGEN VALIDA, SE DESACTIVA LA DETECCION POR IMAGEN
         if (!usarImagenReferencia || imagenReferencia == null || imagenReferencia.trim().isEmpty()) {
-            baseImagenConfigurada = true;
             usarImagenReferencia = false;
+            baseImagenConfigurada = true;
+            tvMensajeEscaneo.setText("Toca un plano para ver al docente.");
             return;
         }
 
@@ -246,14 +251,12 @@ public class ARActivity extends AppCompatActivity {
 
         } catch (Exception e) {
 
-            // SI FALLA LA CARGA DE LA IMAGEN, SE PERMITE USAR PLANO COMO RESPALDO
             baseImagenConfigurada = true;
             usarImagenReferencia = false;
 
-            tvMensajeEscaneo.setText("No se encontró la imagen. Toca un plano para ver al docente."
-            );
+            tvMensajeEscaneo.setText("No se encontró la imagen de referencia. Toca un plano para ver al docente.");
 
-            Toast.makeText(this, "No se pudo cargar la imagen: " + imagenReferencia, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Imagen de referencia no encontrada. Se usará detección por plano.", Toast.LENGTH_LONG).show();
         }
     }
 
