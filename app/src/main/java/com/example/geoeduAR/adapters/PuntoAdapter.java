@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +17,7 @@ import com.example.geoeduAR.models.Docente;
 import com.example.geoeduAR.models.PuntoEducativo;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
-
 public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> {
 
     // LISTA DE PUNTOS EDUCATIVOS QUE SE MOSTRARAN EN EL RECYCLERVIEW
@@ -220,8 +217,8 @@ public class PuntoAdapter extends RecyclerView.Adapter<PuntoAdapter.ViewHolder> 
         if (docente != null) {
 
             contenido += "Este docente forma parte del entorno educativo "
-                            + "de este punto y representa el conocimiento "
-                            + "disponible en esta ubicación.\n\n";
+                    + "de este punto y representa el conocimiento "
+                    + "disponible en esta ubicación.\n\n";
 
             if (docente.nombre != null && !docente.nombre.trim().isEmpty()) {
                 contenido += "Nombre: " + docente.nombre + "\n";

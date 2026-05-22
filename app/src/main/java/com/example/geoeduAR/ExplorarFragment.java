@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -21,7 +20,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.geoeduAR.adapters.PuntoAdapter;
 import com.example.geoeduAR.models.PuntoEducativo;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -92,14 +90,18 @@ public class ExplorarFragment extends Fragment {
         verificarPermisoUbicacion();
 
         etBuscarExplorar.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filtrar(s.toString());
             }
 
-            @Override public void afterTextChanged(Editable s) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
@@ -204,10 +206,11 @@ public class ExplorarFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // I FIREBASE DEVUELVE UN ERROR
+                        //FIREBASE DEVUELVE UN ERROR
                         tvEstadoExplorar.setText("Error al cargar puntos");
                         Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }});
+                    }
+                });
     }
 
     @Override

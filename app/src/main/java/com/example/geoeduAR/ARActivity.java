@@ -1,37 +1,12 @@
 package com.example.geoeduAR;
 
-import android.content.res.AssetFileDescriptor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.content.res.AssetFileDescriptor;import android.graphics.Bitmap;import android.graphics.BitmapFactory;import android.media.MediaPlayer;import android.net.Uri;import android.os.Bundle;import android.view.View;import android.widget.TextView;import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
-import com.google.ar.core.Anchor;
-import com.google.ar.core.AugmentedImage;
-import com.google.ar.core.AugmentedImageDatabase;
-import com.google.ar.core.Config;
-import com.google.ar.core.Frame;
-import com.google.ar.core.Session;
-import com.google.ar.core.TrackingState;
-import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.FrameTime;
-import com.google.ar.sceneform.math.Quaternion;
-import com.google.ar.sceneform.math.Vector3;
-import com.google.ar.sceneform.rendering.ModelRenderable;
-import com.google.ar.sceneform.ux.ArFragment;
-import com.google.ar.sceneform.ux.TransformableNode;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.material.button.MaterialButton;import com.google.android.material.card.MaterialCardView;import com.google.ar.core.Anchor;import com.google.ar.core.AugmentedImage;import com.google.ar.core.AugmentedImageDatabase;import com.google.ar.core.Config;import com.google.ar.core.Frame;import com.google.ar.core.Session;import com.google.ar.core.TrackingState;import com.google.ar.sceneform.AnchorNode;import com.google.ar.sceneform.FrameTime;import com.google.ar.sceneform.math.Quaternion;import com.google.ar.sceneform.math.Vector3;import com.google.ar.sceneform.rendering.ModelRenderable;import com.google.ar.sceneform.ux.ArFragment;import com.google.ar.sceneform.ux.TransformableNode;import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.InputStream;
-import java.util.Collection;
+import java.io.InputStream;import java.util.Collection;
 
 public class ARActivity extends AppCompatActivity {
 

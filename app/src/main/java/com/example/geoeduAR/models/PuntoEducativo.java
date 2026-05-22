@@ -19,7 +19,6 @@ public class PuntoEducativo {
     public float posicionX;
     public float posicionY;
     public float posicionZ;
-
     public PuntoEducativo() {
     }
 
